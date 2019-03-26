@@ -39,7 +39,8 @@ public class MultiTypePagerAdapter extends PagerAdapter {
         if (binder == null) {
             throw new NullPointerException("binder is null");
         }
-        View itemView = LayoutInflater.from(container.getContext()).inflate(binder.getLayoutId(), container, false);
+        View itemView = LayoutInflater.from(container.getContext())
+                .inflate(binder.getLayoutId(), container, false);
         binder.convert(itemView, position, item);
         container.addView(itemView);
         return itemView;
@@ -54,7 +55,12 @@ public class MultiTypePagerAdapter extends PagerAdapter {
         this.items = items;
     }
 
-    public <T> void register(Class<? extends T> clazz, ItemViewBinder<T> binder) {
-        binderMap.put(clazz, binder);
+    public <T> void register(Class<? extends T> clazz,
+                             ItemViewBinder<T> binder) {
+
+    }
+
+    public <T> OneToMany register(Class<? extends T> clazz) {
+        return new OneToMany<>(clazz);
     }
 }
