@@ -1,11 +1,12 @@
 package me.simple.multitype.sample;
 
+import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
 
 import me.simple.multitype.ItemViewBinder;
 
-public class TextBinder extends ItemViewBinder<String> {
+public class Text2Binder extends ItemViewBinder<String> {
 
     @Override
     protected int getLayoutId() {
@@ -14,7 +15,8 @@ public class TextBinder extends ItemViewBinder<String> {
 
     @Override
     protected void convert(View view, int position, String item) {
-        TextView text = view.findViewById(R.id.text);
-        text.setText(item);
+        TextView textView = view.findViewById(R.id.text);
+        textView.setText("Text2Binder");
+        textView.setTextColor(Color.BLUE);
     }
 }

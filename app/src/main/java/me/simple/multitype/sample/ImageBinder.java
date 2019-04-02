@@ -8,7 +8,7 @@ public class ImageBinder extends ItemViewBinder<Integer> {
 
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.item_image;
     }
 
     @Override

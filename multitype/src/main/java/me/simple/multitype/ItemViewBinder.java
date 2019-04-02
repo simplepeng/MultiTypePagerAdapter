@@ -6,6 +6,7 @@ import android.view.View;
 public abstract class ItemViewBinder<T> {
 
     private Context context;
+    MultiTypePagerAdapter adapter;
 
     public ItemViewBinder() {
     }
@@ -23,5 +24,13 @@ public abstract class ItemViewBinder<T> {
             throw new NullPointerException("You must override the constructor with the Context");
         }
         return context;
+    }
+
+    public MultiTypePagerAdapter getAdapter() {
+        return adapter;
+    }
+
+    public void setAdapter(MultiTypePagerAdapter adapter) {
+        this.adapter = adapter;
     }
 }

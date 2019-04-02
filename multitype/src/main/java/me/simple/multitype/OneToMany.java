@@ -5,13 +5,20 @@ public class OneToMany<T> {
     private Class<? extends T> clazz;
     private ItemViewBinder<T>[] binders;
 
-    public OneToMany(Class<? extends T> clazz) {
+    public OneToMany(MultiTypePagerAdapter adapter, Class<? extends T> clazz) {
         this.clazz = clazz;
     }
 
-    public void to(ItemViewBinder<T>... binders) {
+    @SafeVarargs
+    public final OneToMany<T> to(ItemViewBinder<T>... binders) {
         this.binders = binders;
+        return this;
     }
+
+    public void withClassLinker(ClassLinker<T> linker){
+
+    }
+
 
 
 }

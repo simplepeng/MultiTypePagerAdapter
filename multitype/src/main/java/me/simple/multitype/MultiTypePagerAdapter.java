@@ -6,18 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.HashMap;
-
 public class MultiTypePagerAdapter extends PagerAdapter {
 
     private Items items;
-    private HashMap<Class, ItemViewBinder> binderMap = new HashMap<>();
+    private TypePool typePool = new TypePool();
 
     public MultiTypePagerAdapter(Items items) {
         this.items = items;
     }
 
     public MultiTypePagerAdapter() {
+    }
+
+    public void setItems(Items items) {
+        this.items = items;
     }
 
     @Override
@@ -35,10 +37,11 @@ public class MultiTypePagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         Object item = items.get(position);
-        ItemViewBinder binder = binderMap.get(item.getClass());
+        ItemViewBinder binder = typePool.getItemViewBinder(item.getClass());
         if (binder == null) {
             throw new NullPointerException("binder is null");
         }
+        binder.setAdapter(this);
         View itemView = LayoutInflater.from(container.getContext())
                 .inflate(binder.getLayoutId(), container, false);
         binder.convert(itemView, position, item);
@@ -51,16 +54,13 @@ public class MultiTypePagerAdapter extends PagerAdapter {
         container.removeView((View) object);
     }
 
-    public void setItems(Items items) {
-        this.items = items;
-    }
-
     public <T> void register(Class<? extends T> clazz,
                              ItemViewBinder<T> binder) {
-
+        typePool.register(clazz, binder);
     }
 
-    public <T> OneToMany register(Class<? extends T> clazz) {
-        return new OneToMany<>(clazz);
+    @SuppressWarnings("unchecked")
+    public <T> OneToMany<T> register(Class<? extends T> clazz) {
+        return typePool.register(this, clazz);
     }
 }
