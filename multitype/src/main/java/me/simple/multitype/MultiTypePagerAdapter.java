@@ -37,7 +37,7 @@ public class MultiTypePagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         Object item = items.get(position);
-        ItemViewBinder binder = typePool.getItemViewBinder(item.getClass());
+        ItemViewBinder binder = typePool.getItemViewBinder(position, item.getClass());
         if (binder == null) {
             throw new NullPointerException("binder is null");
         }
@@ -54,9 +54,15 @@ public class MultiTypePagerAdapter extends PagerAdapter {
         container.removeView((View) object);
     }
 
+    <T> void register(Class<? extends T> clazz,
+                      ItemViewBinder<T> binder,
+                      Linker<T> linker) {
+        typePool.register(clazz, binder, linker);
+    }
+
     public <T> void register(Class<? extends T> clazz,
                              ItemViewBinder<T> binder) {
-        typePool.register(clazz, binder);
+        register(clazz, binder, new DefaultLinker<T>());
     }
 
     @SuppressWarnings("unchecked")
