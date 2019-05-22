@@ -42,10 +42,12 @@ public class MultiTypePagerAdapter extends PagerAdapter {
             throw new NullPointerException("binder is null");
         }
         binder.setAdapter(this);
+
         View itemView = LayoutInflater.from(container.getContext())
                 .inflate(binder.getLayoutId(), container, false);
         binder.convert(itemView, position, item);
         container.addView(itemView);
+
         return itemView;
     }
 
