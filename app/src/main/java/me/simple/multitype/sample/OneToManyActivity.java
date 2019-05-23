@@ -1,13 +1,12 @@
 package me.simple.multitype.sample;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
-import me.simple.multitype.ClassLinker;
+import me.simple.multitype.Linker;
 import me.simple.multitype.ItemViewBinder;
 import me.simple.multitype.Items;
 import me.simple.multitype.MultiTypePagerAdapter;
@@ -28,7 +27,13 @@ public class OneToManyActivity extends AppCompatActivity {
                         new TextBinder(),
                         new Text2Binder()
                 )
-                .withClassLinker(new ClassLinker<String>() {
+//                .withLinker(new Linker<String>() {
+//                    @Override
+//                    public int index(int position, String s) {
+//                        return 0;
+//                    }
+//                });
+                .withLinker(new Linker<String>() {
                     @Override
                     public Class<? extends ItemViewBinder<String>> index(int position, String s) {
                         return TextUtils.equals(s, "Text2Binder")

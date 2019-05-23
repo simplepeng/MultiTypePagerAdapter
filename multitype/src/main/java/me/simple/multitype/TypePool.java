@@ -1,33 +1,25 @@
 package me.simple.multitype;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class TypePool {
 
-    private List<Class<?>> classList;
-    private List<ItemViewBinder<?>> binderList;
-    private List<Linker<?>> linkerList;
+    private IType mType;
 
-    public TypePool() {
-        classList = new ArrayList<>();
-        binderList = new ArrayList<>();
-        linkerList = new ArrayList<>();
+    public <T> void register(Class<? extends T> clazz, ItemViewBinder<T> binder) {
+        mType = new OneToOne();
     }
 
-
-    public <T> OneToMany register(MultiTypePagerAdapter adapter, Class<? extends T> clazz) {
-        return new OneToMany<>(adapter, clazz);
+    @SuppressWarnings("unchecked")
+    public <T> IType<T> register(Class<? extends T> clazz) {
+        mType = new OneToMany<>(clazz);
+        return mType;
     }
 
-    public ItemViewBinder<?> getItemViewBinder(int position, Class<?> clazz) {
-        ItemViewBinder<?> binder = binderList.get(position);
-        return binder;
-    }
-
-    public <T> void register(Class<? extends T> clazz, ItemViewBinder<T> binder, Linker<T> linker) {
-        classList.add(clazz);
-        binderList.add(binder);
-        linkerList.add(linker);
+    @SuppressWarnings("unchecked")
+    public ItemViewBinder<?> getItemViewBinder(int position, Object item) {
+        if (mType == null) {
+            throw new NullPointerException("You have call register method");
+        }
+        return mType.getItemViewBinder(position, item);
     }
 }
