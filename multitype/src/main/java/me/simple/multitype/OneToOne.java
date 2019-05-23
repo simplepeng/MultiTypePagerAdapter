@@ -1,6 +1,10 @@
 package me.simple.multitype;
 
+import java.util.HashMap;
+
 public class OneToOne<T> implements IType<T> {
+
+    private HashMap<Class<? extends T>, ItemViewBinder<T>> map = new HashMap<>();
 
     @Override
     public int getType() {
@@ -19,6 +23,13 @@ public class OneToOne<T> implements IType<T> {
 
     @Override
     public ItemViewBinder<T> getItemViewBinder(int position, T item) {
-        return null;
+        return map.get(item.getClass());
     }
+
+    @Override
+    public void register(Class<? extends T> clazz, ItemViewBinder<T> binder) {
+        map.put(clazz, binder);
+    }
+
+
 }

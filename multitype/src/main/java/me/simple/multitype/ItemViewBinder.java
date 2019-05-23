@@ -6,7 +6,7 @@ import android.view.View;
 public abstract class ItemViewBinder<T> {
 
     private Context context;
-    MultiTypePagerAdapter adapter;
+    private MultiTypePagerAdapter adapter;
 
     public ItemViewBinder() {
     }

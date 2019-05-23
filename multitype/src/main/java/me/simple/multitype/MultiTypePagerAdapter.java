@@ -40,8 +40,9 @@ public class MultiTypePagerAdapter extends PagerAdapter {
         Object item = items.get(position);
         ItemViewBinder binder = typePool.getItemViewBinder(position, item);
         if (binder == null) {
-            throw new NullPointerException("binder is null");
+            throw new NullPointerException("ItemViewBinder is Null");
         }
+        binder.setAdapter(this);
 
         View itemView = LayoutInflater.from(container.getContext())
                 .inflate(binder.getLayoutId(), container, false);

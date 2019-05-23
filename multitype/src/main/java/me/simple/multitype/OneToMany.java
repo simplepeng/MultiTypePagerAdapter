@@ -38,4 +38,9 @@ public class OneToMany<T> implements IType<T> {
         }
         return null;
     }
+
+    @Override
+    public void register(Class<? extends T> clazz, ItemViewBinder<T> binder) {
+
+    }
 }

@@ -27,12 +27,6 @@ public class OneToManyActivity extends AppCompatActivity {
                         new TextBinder(),
                         new Text2Binder()
                 )
-//                .withLinker(new Linker<String>() {
-//                    @Override
-//                    public int index(int position, String s) {
-//                        return 0;
-//                    }
-//                });
                 .withLinker(new Linker<String>() {
                     @Override
                     public Class<? extends ItemViewBinder<String>> index(int position, String s) {

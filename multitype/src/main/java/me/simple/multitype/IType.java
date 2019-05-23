@@ -12,4 +12,6 @@ public interface IType<T> {
     void withLinker(Linker<T> linker);
 
     ItemViewBinder<T> getItemViewBinder(int position, T item);
+
+    void register(Class<? extends T> clazz, ItemViewBinder<T> binder);
 }
