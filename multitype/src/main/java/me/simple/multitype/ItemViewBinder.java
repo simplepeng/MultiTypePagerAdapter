@@ -1,8 +1,10 @@
 package me.simple.multitype;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.View;
 
+@SuppressWarnings("unused")
 public abstract class ItemViewBinder<T> {
 
     private Context context;
@@ -17,10 +19,16 @@ public abstract class ItemViewBinder<T> {
 
     protected abstract int getLayoutId();
 
-    protected abstract void convert(View view, int position, T item);
+    protected abstract void convertItem(View view,
+                                        int position,
+                                        T item);
+
+    protected void destroyItem(View itemView, int position, Object item) {
+
+    }
 
     protected Context getContext() {
-        if (context == null){
+        if (context == null) {
             throw new NullPointerException("You must override the constructor with the Context");
         }
         return context;
@@ -30,7 +38,7 @@ public abstract class ItemViewBinder<T> {
         return adapter;
     }
 
-    public void setAdapter(MultiTypePagerAdapter adapter) {
+    void setAdapter(MultiTypePagerAdapter adapter) {
         this.adapter = adapter;
     }
 }

@@ -14,7 +14,7 @@ public class TextBinder extends ItemViewBinder<String> {
     }
 
     @Override
-    protected void convert(View view, int position, String item) {
+    protected void convertItem(View view, int position, String item) {
         TextView text = view.findViewById(R.id.text);
         text.setTextColor(Color.RED);
         text.setText(item);

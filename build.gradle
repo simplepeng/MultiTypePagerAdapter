@@ -25,3 +25,14 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    minSdkVersion = 14
+    compileSdkVersion = 27
+    targetSdkVersion = 27
+
+    groupId = "me.simple"
+    artifactId = 'multi-type-pager-adapter'
+    publishVersion = '1.0.0'
+
+}

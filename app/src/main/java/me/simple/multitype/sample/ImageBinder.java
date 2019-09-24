@@ -12,7 +12,8 @@ public class ImageBinder extends ItemViewBinder<Integer> {
     }
 
     @Override
-    protected void convert(View view, int position, Integer item) {
+    protected void convertItem(View view, int position, Integer item) {
 
     }
+
 }

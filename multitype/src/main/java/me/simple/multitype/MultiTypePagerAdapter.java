@@ -38,15 +38,12 @@ public class MultiTypePagerAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
         Object item = items.get(position);
-        ItemViewBinder binder = typePool.getItemViewBinder(position, item);
-        if (binder == null) {
-            throw new NullPointerException("ItemViewBinder is Null");
-        }
+        ItemViewBinder binder = getItemViewBinder(position, item);
         binder.setAdapter(this);
 
         View itemView = LayoutInflater.from(container.getContext())
                 .inflate(binder.getLayoutId(), container, false);
-        binder.convert(itemView, position, item);
+        binder.convertItem(itemView, position, item);
         container.addView(itemView);
 
         return itemView;
@@ -54,9 +51,22 @@ public class MultiTypePagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View) object);
+        View itemView = (View) object;
+        Object item = items.get(position);
+        ItemViewBinder binder = getItemViewBinder(position, item);
+
+        binder.destroyItem(itemView, position, item);
+
+        container.removeView(itemView);
     }
 
+    private ItemViewBinder getItemViewBinder(int position, Object item) {
+        ItemViewBinder binder = typePool.getItemViewBinder(position, item);
+        if (binder == null) {
+            throw new NullPointerException("ItemViewBinder is Null");
+        }
+        return binder;
+    }
 
     public <T> void register(Class<? extends T> clazz,
                              ItemViewBinder<T> binder) {
