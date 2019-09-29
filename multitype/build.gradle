@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -7,9 +8,6 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
 }
@@ -32,4 +30,14 @@ uploadArchives {
         // 版本号
         pom.version = rootProject.ext.publishVersion
     }
+}
+
+//bintray发布
+publish {
+    userOrg = 'simplepeng'
+    groupId = rootProject.ext.groupId
+    artifactId = rootProject.ext.artifactId
+    publishVersion = rootProject.ext.publishVersion
+    desc = '多视图类型的ViewPager Adapter'
+    website = 'https://github.com/simplepeng/MultiTypePagerAdapter'
 }
