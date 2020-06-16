@@ -2,6 +2,12 @@
 
 多视图类型的ViewPager Adapter
 
+## 引入依赖
+
+```gr
+implementation 'me.simple:multi-type-pager-adapter:1.0.0'
+```
+
 ## ItemViewBinder
 
 ```java
@@ -32,6 +38,11 @@ public class ImageBinder extends ItemViewBinder<Integer> {
     @Override
     protected void convertItem(View view, int position, String item) {
        
+    }
+  
+    @Override
+    protected void destroyItem(View itemView, int position, Object item) {
+        super.destroyItem(itemView, position, item);
     }
 }
 ```
